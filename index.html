@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ácido Tranexâmico – Guia Prático</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; }
+    header { background-color: #0069d9; color: white; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; }
+    nav { display: flex; justify-content: space-around; background-color: #007bff; padding: 10px; }
+    nav button { background-color: #ffffff; color: #007bff; border: none; padding: 10px 20px; margin: 5px; border-radius: 15px; cursor: pointer; font-size: 18px; }
+    nav button:hover { background-color: #e2e6ea; }
+    .content { padding: 20px; }
+
+    /* === MODO NOTURNO AJUSTADO === */
+    .dark-mode { background-color: #111; color: #111; }
+    .dark-mode header { background-color: #ccc; color:#111; }
+    .dark-mode nav { background-color: #bbb; }
+    .dark-mode nav button { background-color: #eee; color: #111; }
+
+    .section { display: none; }
+    .active { display: block; }
+    .toggle-dark-mode { position: fixed; top: 10px; right: 10px; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    select { width: 100%; padding: 10px; margin: 10px 0; border-radius: 10px; font-size: 18px; }
+    .kv { margin: 6px 0; }
+    .kv strong { display:inline-block; min-width: 140px; }
+    .disclaimer { margin-top: 12px; font-size: 12px; opacity: .8; }
+    .tools { display:flex; gap:10px; flex-wrap: wrap; margin: 14px 0; }
+    .btn { background-color:#007bff; color:#fff; border:none; border-radius:10px; padding:8px 12px; cursor:pointer; }
+    .btn.secondary { background:#e2e6ea; color:#111; }
+    .card { background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:14px; margin-top:12px; }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .row input { padding:8px 10px; border:1px solid #e5e7eb; border-radius:8px; }
+    .muted { opacity:.85; font-size: 13px; }
+
+    /* === RODAPÉ DISCRETO === */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 11px;
+      opacity: 0.4;
+      padding: 4px;
+      background: transparent;
+      pointer-events: none; /* não atrapalha clique */
+    }
+  </style>
+</head>
+<body>
+
+<header>Ácido Tranexâmico – Uso Clínico</header>
+<button class="toggle-dark-mode" onclick="toggleDarkMode()">Modo Noturno</button>
+
+<nav>
+  <button onclick="showSection('patologia')">Patologia</button>
+  <button onclick="showSection('sobre')">Sobre</button>
+</nav>
+
+<div class="content">
+  <div id="patologia" class="section active">
+    <h2>Selecione a Patologia</h2>
+    <select id="patologiaSelect">
+      <option value="">Escolha uma patologia</option>
+      <option value="trauma">Trauma grave com hemorragia ativa</option>
+      <option value="tce">TCE leve a moderado (GCS ≥ 9)</option>
+      <option value="pph">Hemorragia pós-parto (PPH)</option>
+      <option value="cardiaca">Cirurgia cardíaca</option>
+      <option value="transplante">Transplante hepático</option>
+      <option value="hemoptise">Hemoptise (inalatório)</option>
+      <option value="epistaxe">Epistaxe (tópico)</option>
+      <option value="hematuria">Hematúria (vesical)</option>
+    </select>
+    <div id="details" class="card" style="display:none"></div>
+  </div>
+
+  <div id="sobre" class="section">
+    <h2>Sobre</h2>
+    <p>Guia prático com doses e janelas de uso do ácido tranexâmico (TXA) em cenários de sangramento, baseado nos estudos CRASH-2, CRASH-3, WOMAN e literatura correlata. Use sob orientação médica e protocolos institucionais.</p>
+    <p class="muted">Este material tem caráter educativo e não substitui julgamento clínico individualizado.</p>
+  </div>
+</div>
+
+<!-- Rodapé discreto -->
+<footer>
+  Criador: Guilherme Lisboa de Lima
+</footer>
+
+<script>
+function showSection(sectionId){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+}
+function toggleDarkMode(){ document.body.classList.toggle('dark-mode'); }
+
+const DATA = {
+  trauma:{titulo:'Trauma grave com hemorragia ativa',dose:'1 g EV bolus + 1 g EV em 8 h',quando:'Nas primeiras 3 h do trauma',evidencia:'CRASH-2 – Redução da mortalidade sem aumento de trombose'},
+  tce:{titulo:'TCE leve a moderado (GCS ≥ 9)',dose:'1 g EV bolus + 1 g EV em 8 h',quando:'Nas primeiras 3 h da lesão',evidencia:'CRASH-3 – Benefício em TCE não grave'},
+  pph:{titulo:'Hemorragia pós-parto (PPH)',dose:'1 g EV → repetir 1 g se sangramento persistir',quando:'Até 3 h após o parto',evidencia:'WOMAN trial – Redução da mortalidade hemorrágica'},
+  cardiaca:{titulo:'Cirurgia cardíaca',dose:'20–50 mg/kg bolus OU 10 mg/kg bolus + 1 mg/kg/h infusão',quando:'Conforme protocolo intraoperatório',evidencia:'Diversos trials – Redução de sangramento e transfusão | Risco: convulsões em altas doses'},
+  transplante:{titulo:'Transplante hepático',dose:'1–2 g EV na reperfusão',quando:'Uso comum na fase anhepática ou início do fluxo portal',evidencia:'Estudos de coorte – Previne sangramentos'},
+  hemoptise:{titulo:'Hemoptise (inalatório)',dose:'500 mg diluídos em 10 mL de SF 0,9%, 6/6 h',quando:'Indicado em hemoptise não maciça',evidencia:'Uso clínico off-label com boa resposta'},
+  epistaxe:{titulo:'Epistaxe (tópico)',dose:'500–1000 mg embebidos em gaze nasal',quando:'Sangramentos refratários à compressão',evidencia:'Estudos com menor necessidade de cauterização'},
+  hematuria:{titulo:'Hematúria (vesical)',dose:'1 g diluído em 1 L de SF para irrigação',quando:'Hematúria persistente após cirurgia urológica',evidencia:'Boa resposta clínica em neoplasias urológicas'}
+};
+
+function renderDetails(key){
+  const box=document.getElementById('details');
+  if(!key){ box.style.display='none'; box.innerHTML=''; return; }
+  const d=DATA[key];
+  box.innerHTML=`
+    <h3>${d.titulo}</h3>
+    <p class="kv"><strong>Dose:</strong> ${d.dose}</p>
+    <p class="kv"><strong>Quando usar:</strong> ${d.quando}</p>
+    <p class="kv"><strong>Evidência:</strong> ${d.evidencia}</p>
+    <div class="tools">
+      <button class="btn" id="copyBtn">📋 Copiar conduta</button>
+    </div>
+    <p class="disclaimer">⚠️ Use conforme protocolos institucionais e avaliação clínica individual.</p>`;
+  box.style.display='block';
+  document.getElementById('copyBtn').addEventListener('click',()=>{
+    const txt=`${d.titulo}\nDose: ${d.dose}\nQuando usar: ${d.quando}\nEvidência: ${d.evidencia}`;
+    if(navigator.clipboard){navigator.clipboard.writeText(txt);}
+  });
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('patologiaSelect').addEventListener('change',e=>renderDetails(e.target.value));
+});
+</script>
+
+</body>
+</html>
